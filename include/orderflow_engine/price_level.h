@@ -4,11 +4,35 @@
 
 #pragma once
 #include <cstdint>
-#include "types.h"
-#include "price_level.h"
+#include "order.h"
 
 namespace orderflow_engine {
-    struct price_level {
 
-    }
+    class PriceLevel {
+    public:
+        // 初始化函数，explicit 禁止隐式类型转换Pricelevel = price
+        explicit PriceLevel(int64_t price = 0) : price_(price) {}
+
+        void add_order(Order*);
+        void reduce_order(Order* ,int64_t);
+        void remove_order(Order*);
+
+        // 内部变量访问函数
+        int64_t price() const { return price_; }
+        int64_t total_volume() const { return tol_volume_; }
+        int64_t order_count() const { return order_count_; }
+        bool is_empty() const { return order_count_ == 0; }
+
+        Order* head() const { return head_; }
+        Order* tail() const { return tail_; }
+
+    private:
+        int64_t price_ = 0;
+        int64_t tol_volume_ = 0;
+        uint64_t order_count_ = 0;
+
+        Order* head_ = nullptr;
+        Order* tail_ = nullptr;
+
+    };
 }

@@ -39,7 +39,7 @@ file(GLOB_RECURSE OF_ENGINE_SOURCES CONFIGURE_DEPENDS
 )
 
 # ------------------------------------------------------------------------------
-# Library Target: oderflow_engine
+# Library Target: orderflow_engine
 # ------------------------------------------------------------------------------
 if(OF_ENGINE_SOURCES)
     add_library(of_engine STATIC

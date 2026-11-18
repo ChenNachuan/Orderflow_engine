@@ -7,12 +7,14 @@
 #include "types.h"
 
 namespace orderflow_engine {
+
     struct Order {
         uint64_t order_id;
         uint64_t timestamp;
 
         int64_t price;
         int64_t volume;
+        int64_t original_volume;
 
         Order* prev = nullptr;
         Order* next = nullptr;
