@@ -20,17 +20,15 @@ namespace orderflow_engine {
         UNKNOWN = 0
     };
 
-    // 强制编译器按 1 字节对齐，禁用内存填充，保证内存布局与磁盘二进制文件完全一致
-    #pragma pack(push, 1)
     struct Event {
-        uint64_t timestamp;
-        uint64_t order_id;
+        uint64_t timestamp; // 纳秒精度时间戳
+        uint64_t seq; //ApplSeqNum（交易所委托号/成交编号，全局单调）
+        uint64_t order_id; // 委托的订单 id
 
-        int64_t price;
+        int64_t price; // *10000，转化成整数避免精度损失
         int64_t volume;
 
         EventType type;
         Side side;
     };
-    #pragma pack(pop)
 }

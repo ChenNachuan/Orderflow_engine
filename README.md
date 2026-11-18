@@ -10,7 +10,8 @@
 
 项目目前处于基础脚手架搭建阶段：
 
-- **核心基础类型**（`include/of_engine/types.h`）：
+- **核心基础类型**（`include/
+- of_engine/types.h`）：
   - 定义 `orderflow_engine::EventType` 枚举（`ADD` 新增委托、`CANCEL` 撤单、`EXECUTE` 撮合成交、`MODIFY` 改单）
 - **构建系统**（`CMakeLists.txt`）：
   - 要求 CMake 3.20+ 与 C++20 标准（`CMAKE_CXX_STANDARD 20`）
