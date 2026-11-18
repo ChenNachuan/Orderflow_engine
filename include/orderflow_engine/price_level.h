@@ -29,7 +29,7 @@ namespace orderflow_engine {
     private:
         int64_t price_ = 0;
         int64_t tol_volume_ = 0;
-        uint64_t order_count_ = 0;
+        int64_t order_count_ = 0;
 
         Order* head_ = nullptr;
         Order* tail_ = nullptr;

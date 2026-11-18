@@ -68,4 +68,15 @@ namespace orderflow_engine {
         tol_volume_ -= order->volume;
 
     }
+
+    void PriceLevel::reduce_order(Order* order, int64_t volume) {
+        assert(order != nullptr);
+        assert(order->level == this);
+        assert(volume > 0);
+        assert(volume <= order->volume);
+        assert(tol_volume_ >= order->volume);
+
+        order->volume -= volume;
+        tol_volume_ -= volume;
+    }
 }
