@@ -78,5 +78,9 @@ namespace orderflow_engine {
 
         order->volume -= volume;
         tol_volume_ -= volume;
+
+        if (order->volume == volume) {
+            remove_order(order);
+        }
     }
 }
