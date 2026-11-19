@@ -59,6 +59,7 @@ else()
     # Header-only mode while no source files exist under src/
     add_library(of_engine INTERFACE
         ${OF_ENGINE_HEADERS}
+            src/order_book.cpp
     )
     set(OF_ENGINE_VISIBILITY INTERFACE)
 endif()
