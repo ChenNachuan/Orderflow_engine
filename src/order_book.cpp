@@ -4,6 +4,7 @@
 
 #include "orderflow_engine/order_book.h"
 #include "orderflow_engine/order.h"
+#include "orderflow_engine/types.h"
 #include <cassert>
 
 namespace orderflow_engine{
