@@ -37,4 +37,12 @@ namespace orderflow_engine{
         }
         return it->second.total_volume();
     }
+
+    const Order* OrderBook::get_order(uint64_t order_id) const {
+        auto it = order_index_.find(order_id);
+        if (it == order_index_.end()) {
+            return nullptr;
+        }
+        return it->second;
+    }
 };

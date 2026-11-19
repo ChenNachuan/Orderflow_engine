@@ -7,6 +7,7 @@
 #include <map>
 #include <unordered_map>
 #include <optional>
+#include <cassert>
 #include "types.h"
 #include "orderflow_engine/price_level.h"
 
@@ -32,7 +33,7 @@ namespace orderflow_engine {
         const std::map<int64_t, PriceLevel>* ask(){return &ask_;}
         const std::map<int64_t, PriceLevel,std::greater<>>* bid(){return &bid_;}
 
-        const Order* get_order(int64_t price){return order_index_[price];};
+        [[nodiscard]] const Order* get_order(uint64_t order_id) const;
 
         order_count();
         bid_level_count();
