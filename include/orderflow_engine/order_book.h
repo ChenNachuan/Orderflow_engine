@@ -35,9 +35,9 @@ namespace orderflow_engine {
 
         [[nodiscard]] const Order* get_order(uint64_t order_id) const;
 
-        order_count();
-        bid_level_count();
-        ask_level_count();
+        [[nodiscard]] int64_t order_count() const {return order_index_.size();};
+        [[nodiscard]] int64_t bid_level_count() const {return bid_.size();};
+        [[nodiscard]] int64_t ask_level_count() const {return ask_.size();};
 
         is_good();
         ob_state();

@@ -18,13 +18,13 @@ namespace orderflow_engine {
         void remove_order(Order*);
 
         // 内部变量访问函数
-        int64_t price() const { return price_; }
-        int64_t total_volume() const { return tol_volume_; }
-        int64_t order_count() const { return order_count_; }
-        bool is_empty() const { return order_count_ == 0; }
+        [[nodiscard]] int64_t price() const { return price_; }
+        [[nodiscard]] int64_t total_volume() const { return tol_volume_; }
+        [[nodiscard]] int64_t order_count() const { return order_count_; }
+        [[nodiscard]] bool is_empty() const { return order_count_ == 0; }
 
-        Order* head() const { return head_; }
-        Order* tail() const { return tail_; }
+        [[nodiscard]] Order* head() const { return head_; }
+        [[nodiscard]] Order* tail() const { return tail_; }
 
     private:
         int64_t price_ = 0;
