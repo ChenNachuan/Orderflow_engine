@@ -35,13 +35,15 @@ namespace orderflow_engine {
 
         [[nodiscard]] const Order* get_order(uint64_t order_id) const;
 
-        [[nodiscard]] int64_t order_count() const {return order_index_.size();};
-        [[nodiscard]] int64_t bid_level_count() const {return bid_.size();};
-        [[nodiscard]] int64_t ask_level_count() const {return ask_.size();};
+        // 获得订单数，ask 和 bid 的 price 数
+        [[nodiscard]] size_t order_count() const {return order_index_.size();};
+        [[nodiscard]] size_t bid_level_count() const {return bid_.size();};
+        [[nodiscard]] size_t ask_level_count() const {return ask_.size();};
 
-        is_good();
-        ob_state();
-        n_batch_auction();
+        // 访问状态变量
+        [[nodiscard]] bool is_good() const {return is_good_;}
+        [[nodiscard]] uint64_t ob_state() const {return ob_state_;}
+        [[nodiscard]] bool in_batch_auction() const {return in_batch_auction_;}
 
     private:
 
