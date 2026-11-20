@@ -47,5 +47,5 @@ namespace orderflow_engine{
         return it->second;
     }
 
-    void OrderBook::apply(const Event& event) const {}
+    void OrderBook::apply(const Event& event) {}
 };
