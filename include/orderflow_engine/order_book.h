@@ -19,7 +19,7 @@ namespace orderflow_engine {
         ~OrderBook() = default;
 
         // 唯一的操作入口 apply 函数
-        void apply(const Event&) const;
+        void apply(const Event&);
 
         // 查询最优买卖价
         [[nodiscard]] std::optional<int64_t> best_ask() const;
