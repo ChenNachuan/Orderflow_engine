@@ -30,8 +30,8 @@ namespace orderflow_engine {
         [[nodiscard]] std::optional<int64_t> bid_volume_at(int64_t price) const;
 
         //返回对应 ask 和 bid 的对应指针
-        const std::map<int64_t, PriceLevel>* ask(){return &ask_;}
-        const std::map<int64_t, PriceLevel,std::greater<>>* bid(){return &bid_;}
+        const std::map<int64_t, PriceLevel>* ask() const {return &ask_;}
+        const std::map<int64_t, PriceLevel,std::greater<>>* bid() const {return &bid_;}
 
         [[nodiscard]] const Order* get_order(uint64_t order_id) const;
 
