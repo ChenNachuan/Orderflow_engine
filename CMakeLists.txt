@@ -21,19 +21,19 @@ endif()
 # ------------------------------------------------------------------------------
 # Options
 # ------------------------------------------------------------------------------
-option(OF_ENGINE_BUILD_TESTS     "Build unit tests" OFF)
-option(OF_ENGINE_BUILD_EXAMPLES  "Build example programs" OFF)
-option(OF_ENGINE_ENABLE_WARNINGS "Enable strict compiler warnings" ON)
+option(ORDERFLOW_ENGINE_BUILD_TESTS     "Build unit tests" OFF)
+option(ORDERFLOW_ENGINE_BUILD_EXAMPLES  "Build example programs" OFF)
+option(ORDERFLOW_ENGINE_ENABLE_WARNINGS "Enable strict compiler warnings" ON)
 
 # ------------------------------------------------------------------------------
 # Sources & Headers
 # ------------------------------------------------------------------------------
-file(GLOB_RECURSE OF_ENGINE_HEADERS CONFIGURE_DEPENDS
+file(GLOB_RECURSE ORDERFLOW_ENGINE_HEADERS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp"
 )
 
-file(GLOB_RECURSE OF_ENGINE_SOURCES CONFIGURE_DEPENDS
+file(GLOB_RECURSE ORDERFLOW_ENGINE_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc"
 )
@@ -41,46 +41,45 @@ file(GLOB_RECURSE OF_ENGINE_SOURCES CONFIGURE_DEPENDS
 # ------------------------------------------------------------------------------
 # Library Target: orderflow_engine
 # ------------------------------------------------------------------------------
-if(OF_ENGINE_SOURCES)
-    add_library(of_engine STATIC
-        ${OF_ENGINE_SOURCES}
-        ${OF_ENGINE_HEADERS}
+if(ORDERFLOW_ENGINE_SOURCES)
+    add_library(orderflow_engine STATIC
+        ${ORDERFLOW_ENGINE_SOURCES}
+        ${ORDERFLOW_ENGINE_HEADERS}
     )
-    set(OF_ENGINE_VISIBILITY PUBLIC)
+    set(ORDERFLOW_ENGINE_VISIBILITY PUBLIC)
 
-    if(OF_ENGINE_ENABLE_WARNINGS)
+    if(ORDERFLOW_ENGINE_ENABLE_WARNINGS)
         if(MSVC)
-            target_compile_options(of_engine PRIVATE /W4 /permissive-)
+            target_compile_options(orderflow_engine PRIVATE /W4 /permissive-)
         else()
-            target_compile_options(of_engine PRIVATE -Wall -Wextra -Wpedantic)
+            target_compile_options(orderflow_engine PRIVATE -Wall -Wextra -Wpedantic)
         endif()
     endif()
 else()
     # Header-only mode while no source files exist under src/
-    add_library(of_engine INTERFACE
-        ${OF_ENGINE_HEADERS}
-            src/order_book.cpp
+    add_library(orderflow_engine INTERFACE
+        ${ORDERFLOW_ENGINE_HEADERS}
     )
-    set(OF_ENGINE_VISIBILITY INTERFACE)
+    set(ORDERFLOW_ENGINE_VISIBILITY INTERFACE)
 endif()
 
-add_library(of_engine::of_engine ALIAS of_engine)
+add_library(orderflow_engine::orderflow_engine ALIAS orderflow_engine)
 
-target_include_directories(of_engine ${OF_ENGINE_VISIBILITY}
+target_include_directories(orderflow_engine ${ORDERFLOW_ENGINE_VISIBILITY}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
 
-target_compile_features(of_engine ${OF_ENGINE_VISIBILITY} cxx_std_20)
+target_compile_features(orderflow_engine ${ORDERFLOW_ENGINE_VISIBILITY} cxx_std_20)
 
 # ------------------------------------------------------------------------------
 # Subdirectories (Tests / Examples)
 # ------------------------------------------------------------------------------
-if(OF_ENGINE_BUILD_TESTS AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/CMakeLists.txt")
+if(ORDERFLOW_ENGINE_BUILD_TESTS AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/CMakeLists.txt")
     enable_testing()
     add_subdirectory(tests)
 endif()
 
-if(OF_ENGINE_BUILD_EXAMPLES AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/examples/CMakeLists.txt")
+if(ORDERFLOW_ENGINE_BUILD_EXAMPLES AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/examples/CMakeLists.txt")
     add_subdirectory(examples)
 endif()

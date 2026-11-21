@@ -66,16 +66,16 @@ cmake --build build
 
 | 选项 | 默认值 | 说明 |
 | :--- | :--- | :--- |
-| `OF_ENGINE_BUILD_TESTS` | `OFF` | 构建单元测试（需存在 `tests/CMakeLists.txt`） |
-| `OF_ENGINE_BUILD_EXAMPLES` | `OFF` | 构建示例程序（需存在 `examples/CMakeLists.txt`） |
-| `OF_ENGINE_ENABLE_WARNINGS` | `ON` | 为静态库目标启用严格编译警告（`-Wall -Wextra -Wpedantic`） |
+| `ORDERFLOW_ENGINE_BUILD_TESTS` | `OFF` | 构建单元测试（需存在 `tests/CMakeLists.txt`） |
+| `ORDERFLOW_ENGINE_BUILD_EXAMPLES` | `OFF` | 构建示例程序（需存在 `examples/CMakeLists.txt`） |
+| `ORDERFLOW_ENGINE_ENABLE_WARNINGS` | `ON` | 为静态库目标启用严格编译警告（`-Wall -Wextra -Wpedantic`） |
 
 ### 运行测试（规划中）
 
 接入 `tests/` 目录后，可通过以下方式编译并运行全部测试：
 
 ```bash
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DOF_ENGINE_BUILD_TESTS=ON
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DORDERFLOW_ENGINE_BUILD_TESTS=ON
 cmake --build build
 ctest --test-dir build --output-on-failure
 ```
@@ -84,7 +84,7 @@ ctest --test-dir build --output-on-failure
 
 ```cmake
 add_subdirectory(Orderflow_engine)
-target_link_libraries(your_target PRIVATE of_engine::of_engine)
+target_link_libraries(your_target PRIVATE orderflow_engine::orderflow_engine)
 ```
 
 ## 项目文档

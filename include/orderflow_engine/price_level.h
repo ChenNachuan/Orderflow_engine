@@ -10,7 +10,7 @@ namespace orderflow_engine {
 
     class PriceLevel {
     public:
-        // 初始化函数，explicit 禁止隐式类型转换Pricelevel = price
+        // 初始化函数，explicit 禁止隐式类型转换 PriceLevel = price
         explicit PriceLevel(int64_t price = 0) : price_(price) {}
 
         void add_order(Order*);

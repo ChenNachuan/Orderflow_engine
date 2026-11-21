@@ -18,7 +18,11 @@ namespace orderflow_engine {
     public:
         // 构造和析构函数
         OrderBook() = default;
-        ~OrderBook() = default;
+        ~OrderBook();
+
+        //禁用拷贝
+        OrderBook(const OrderBook&) = delete;            // 禁止用别的 OrderBook 复制造出新的
+        OrderBook& operator=(const OrderBook&) = delete; // 禁止用 = 把一个 OrderBook 复制给另一个
 
         // 唯一的操作入口 apply 函数
         void apply(const Event& event);
