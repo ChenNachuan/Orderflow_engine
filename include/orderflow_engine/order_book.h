@@ -3,23 +3,25 @@
 //
 
 #pragma once
+
+#include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <map>
-#include <unordered_map>
 #include <optional>
-#include <cassert>
-#include "types.h"
+#include <unordered_map>
 #include "orderflow_engine/price_level.h"
+#include "orderflow_engine/types.h"
 
 namespace orderflow_engine {
     class OrderBook {
     public:
-        //构造和析构函数
+        // 构造和析构函数
         OrderBook() = default;
         ~OrderBook() = default;
 
         // 唯一的操作入口 apply 函数
-        void apply(const Event&);
+        void apply(const Event& event);
 
         // 查询最优买卖价
         [[nodiscard]] std::optional<int64_t> best_ask() const;
@@ -29,27 +31,30 @@ namespace orderflow_engine {
         [[nodiscard]] std::optional<int64_t> ask_volume_at(int64_t price) const;
         [[nodiscard]] std::optional<int64_t> bid_volume_at(int64_t price) const;
 
-        //返回对应 ask 和 bid 的对应指针
-        const std::map<int64_t, PriceLevel>* ask() const {return &ask_;}
-        const std::map<int64_t, PriceLevel,std::greater<>>* bid() const {return &bid_;}
+        // 返回对应 ask 和 bid 的对应指针
+        [[nodiscard]] const std::map<int64_t, PriceLevel>* ask() const { return &ask_; }
+        [[nodiscard]] const std::map<int64_t, PriceLevel, std::greater<>>* bid() const { return &bid_; }
 
         [[nodiscard]] const Order* get_order(uint64_t order_id) const;
 
         // 获得订单数，ask 和 bid 的 price 数
-        [[nodiscard]] size_t order_count() const {return order_index_.size();};
-        [[nodiscard]] size_t bid_level_count() const {return bid_.size();};
-        [[nodiscard]] size_t ask_level_count() const {return ask_.size();};
+        [[nodiscard]] size_t order_count() const { return order_index_.size(); }
+        [[nodiscard]] size_t bid_level_count() const { return bid_.size(); }
+        [[nodiscard]] size_t ask_level_count() const { return ask_.size(); }
 
         // 访问状态变量
-        [[nodiscard]] bool is_good() const {return is_good_;}
-        [[nodiscard]] uint64_t ob_state() const {return ob_state_;}
-        [[nodiscard]] bool in_batch_auction() const {return in_batch_auction_;}
+        [[nodiscard]] bool is_good() const { return is_good_; }
+        [[nodiscard]] int64_t ob_state() const { return ob_state_; }
+        [[nodiscard]] bool in_batch_auction() const { return in_batch_auction_; }
 
     private:
+        void on_add(const Event& event);
+        void on_cancel(const Event& event);
+        void on_execute(const Event& event);
 
         // 两个 PriceLevel 队列，红黑树形式
         std::map<int64_t, PriceLevel> ask_;
-        std::map<int64_t, PriceLevel,std::greater<>> bid_;
+        std::map<int64_t, PriceLevel, std::greater<>> bid_;
 
         // 全局订单索引
         std::unordered_map<uint64_t, Order*> order_index_;
